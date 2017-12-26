@@ -33,6 +33,13 @@ public class Controller {
         }else if(e.getSource().equals(byeButton)){
             System.out.println("Bye "+ nameField.getText());
         }
+
+        try{
+            Thread.sleep(10000);  //doing this just to make sure that the event handling takes 10 seconds and the UI thread is not listening to other events for this 10 secs and the appilcation will actually freeze
+        }catch (InterruptedException event){
+            //we don't care about this
+        }
+
         //now we want to clear the textfield if the checkbox is checked
         if(ourCheckBox.isSelected()){
             nameField.clear();

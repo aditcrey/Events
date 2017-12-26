@@ -46,6 +46,7 @@ public class Main extends Application {
  * the UI thread sees the events and if the application is listening for that event, the event is dispatched to the event
  * handler
  * Now, the event handler itself runs on the UI thread so what that means is while an event handler is running, the UI
- * thread is busy and it is no longer paying attention to the user input
+ * thread is busy and it is no longer paying attention to the user input...in other words the user won't be able to interact with the UI while that's actually accuring
+ * and if he/she tries to do anything at that point, the application won't actually respond
  *
  */
