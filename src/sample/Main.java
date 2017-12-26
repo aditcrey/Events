@@ -49,4 +49,24 @@ public class Main extends Application {
  * thread is busy and it is no longer paying attention to the user input...in other words the user won't be able to interact with the UI while that's actually accuring
  * and if he/she tries to do anything at that point, the application won't actually respond
  *
+ *
+ * If our event handler needs to do something which will take more time then what it should really be doing is start another thread(k/as background thread)...now this new thread would do the work that's
+ * gonna take a while to process so the event handler which is still running on the UI thread will be able to return and the UI thread can listen to a user input again so
+ * from the perspective of a user who is running the application, he/she won't see the pauses and the delays
+ *
+ * for eg. if data is to be retrieved from a database or internet, that can be done in the background thread and when the background thread has the data, it can inform the UI thread
+ * which can then show it on the user interface
+ *
+ *
+ * IMP NOTE: With thread other than the UI thread(also k/as JavaFx application thread), if we try to modify the nodes of the scene graph(controls and such)
+ * then we'll get an exception(that scene graph isn't thread-safe)...note that we can't modify the nodes of scene-graph with threads other than the UI thread...for more
+ * info on this go to 7:47 of lecture 139 of Udemy Tim Buchalka Java Masterclass on Threads and Runnable
+ *
+ *
+ *when we are performing a long task in the background thread, we usually want to update a part of UI when the task is finish so what we need
+ * here is a way to force code to run on the UI thread and JavaFX...we can do this by using run later method  in the platform class
+ *
+ * run later method accepts a runnable parameter and places it on the UI thread's queue so in other words, it's gonna force the runnable objects
+ * to run on the UI thread
+ *
  */

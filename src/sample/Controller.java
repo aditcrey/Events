@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField; //make sure to import javafx.scene and not java.awt //be careful about this
 
 public class Controller {
@@ -16,6 +17,8 @@ public class Controller {
     private Button byeButton;
     @FXML
     private CheckBox ourCheckBox;
+    @FXML
+    private Label ourLabel;
 
     @FXML
     public void initialize(){ //to disable the buttons when the application starts
@@ -34,11 +37,29 @@ public class Controller {
             System.out.println("Bye "+ nameField.getText());
         }
 
-        try{
-            Thread.sleep(10000);  //doing this just to make sure that the event handling takes 10 seconds and the UI thread is not listening to other events for this 10 secs and the appilcation will actually freeze
-        }catch (InterruptedException event){
-            //we don't care about this
-        }
+        Runnable task = new Runnable() { //this runnable will make this code run in the backGround thread (and not on UI thread)
+            @Override
+            public void run() {
+
+                try{
+                    Thread.sleep(10000);  //doing this just to make sure that the event handling takes 10 seconds and the UI thread is not listening to other events for this 10 secs and the appilcation will actually freeze
+                    ourLabel.setText("We did something!");
+                }catch (InterruptedException event){
+                    //we don't care about this
+                }
+
+
+            }
+        };
+
+        new Thread(task).start(); //this starts the thread for the code inside the runnable
+
+//
+//        try{
+//            Thread.sleep(10000);  //doing this just to make sure that the event handling takes 10 seconds and the UI thread is not listening to other events for this 10 secs and the appilcation will actually freeze
+//        }catch (InterruptedException event){
+//            //we don't care about this
+//        }
 
         //now we want to clear the textfield if the checkbox is checked
         if(ourCheckBox.isSelected()){
