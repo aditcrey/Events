@@ -1,6 +1,7 @@
 package sample;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,8 +43,18 @@ public class Controller {
             public void run() {
 
                 try{
+                    String s = Platform.isFxApplicationThread()?"UI Thread":"Background Thread";
+                    System.out.println("I'm going to sleep  on the " + s);
                     Thread.sleep(10000);  //doing this just to make sure that the event handling takes 10 seconds and the UI thread is not listening to other events for this 10 secs and the appilcation will actually freeze
-                    ourLabel.setText("We did something!");
+                    Platform.runLater(new Runnable() {  //so that the label text is updated in the UI thread
+                        @Override
+                        public void run() {
+                            String s = Platform.isFxApplicationThread()?"UI Thread":"Background Thread";
+                            System.out.println("I'm updating the label on the" + s);
+                            ourLabel.setText("We did something!");
+
+                        }
+                    });
                 }catch (InterruptedException event){
                     //we don't care about this
                 }

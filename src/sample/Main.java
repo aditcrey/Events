@@ -69,4 +69,12 @@ public class Main extends Application {
  * run later method accepts a runnable parameter and places it on the UI thread's queue so in other words, it's gonna force the runnable objects
  * to run on the UI thread
  *
+ *
+ *
+ * There is a fx application thread method in Platform class which returns true when the code is running on the JavaFx appliction thread and false
+ *false otherwise...we can use this method when we are trying to debug our code
+ *
+ *
+ * javaFx provides APIs in javafx.concurrent for threads and stuff but it's an advanced topic which will not be studied in this course
+ * link: https://docs.oracle.com/javase/8/javafx/interoperability-tutorial/concurrency.htm
  */
